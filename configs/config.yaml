@@ -1,1 +1,7 @@
 port: "7999"
+
+db:
+  host: "localhost"
+  port: "5432"
+  dbname: "postgres"
+  sslmode: "disable"
