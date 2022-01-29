@@ -2,6 +2,7 @@ package todo_app
 
 import (
 	"context"
+	"log"
 	"net/http"
 	"time"
 )
@@ -18,7 +19,7 @@ func (s *Server) Start(port string, handler http.Handler) error {
 		ReadTimeout:    10 * time.Second,
 		WriteTimeout:   10 * time.Second,
 	}
-
+	log.Printf("Server running on port %s", port)
 	return s.httpServer.ListenAndServe()
 }
 
