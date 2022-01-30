@@ -13,6 +13,7 @@ import (
 )
 
 func main() {
+	// Логирование
 	logrus.SetFormatter(new(logrus.JSONFormatter))
 
 	if err := initConfig(); err != nil {
@@ -23,6 +24,7 @@ func main() {
 		logrus.Fatalf("error loading env variables: %s", err.Error())
 	}
 
+	// Подключение к БД
 	db, err := repository.NewPostgresDB(repository.Config{
 		Host:     viper.GetString("db.host"),
 		Port:     viper.GetString("db.port"),
@@ -39,6 +41,7 @@ func main() {
 	Service := service.NewService(Repository)
 	Handler := handler.NewHandler(Service)
 
+	// Запуск сервера
 	server := new(todo_app.Server)
 	if err := server.Start(viper.GetString("port"), Handler.InitRouter()); err != nil {
 		logrus.Fatalf("Error occured while http server: %s", err.Error())
